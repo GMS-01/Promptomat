@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt-Maschine</title>
+    <style>
+        body, h1, .info-card, .flip-card-front, .prompt-text, .action-button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: rgb(255, 255, 255);
+            color: #0d121c;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #0d121c;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            width: 400px;
+            height: 550px;
+            background-color: rgb(0, 0, 145);
+            color: #fff;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+            text-align: left;
+            overflow-y: auto;
+        }
+
+        .info-card h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .info-card ul {
+            padding-left: 20px;
+        }
+
+        .info-card ul li {
+            margin-bottom: 5px;
+        }
+        
+        .flip-card {
+            background-color: transparent;
+            width: 400px;
+            height: 550px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 25px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background-color: rgb(0, 0, 145);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .flip-card-back {
+            background-color: #f0f0f0;
+            color: #1a2333;
+            transform: rotateY(180deg);
+            text-align: left;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            word-wrap: break-word;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            display: block; /* Use block to enable more flexible text formatting */
+        }
+        
+        .prompt-text {
+            flex-grow: 1;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        /* New CSS for the right card's text */
+        .prompt-title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .prompt-content {
+            font-style: italic;
+            display: block;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Updated button colors */
+        .button-primary,
+        .button-copy {
+            background-color: rgb(111, 22, 111);
+        }
+        
+        .button-primary:hover,
+        .button-copy:hover {
+            background-color: rgb(88, 17, 88); /* Eine etwas dunklere Version für den Hover-Effekt */
+            box-shadow: 0 6px 20px rgba(111, 22, 111, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Prompt-Maschine</h1>
+
+<div class="cards-container">
+
+    <div class="info-card">
+        <h2>Willkommen auf dem HRP-Marktplatz!</h2>
+        <p>Zum Einstieg möchten wir dich dazu einladen, das „Prompten“ spielerisch selbst auszuprobieren. Dafür haben wir diese Prompt-Maschine entwickelt, die dir mit jedem Klick einen neuen, inspirierenden KI-Prompt präsentiert.</p>
+        <p>Jeder Prompt wurde speziell für den beruflichen Kontext erstellt und soll als kreative Starthilfe dienen. Probiere ihn mit FraportGPT oder einem anderen KI-Tool deiner Wahl aus.</p>
+        <p><b>So funktioniert’s:</b></p>
+        <ul>
+            <li>Klicke auf die Karte, um einen zufälligen Prompt zu erhalten.</li>
+            <li>Kopiere den Prompt: Mit dem Button „Text kopieren“ kannst du den Prompt direkt in deine Zwischenablage übernehmen.</li>
+            <li>Passe den Prompt an: Beachte, dass die Prompts oft noch mit den richtigen Informationen von dir personalisiert werden müssen.</li>
+            <li>Starte die nächste Runde: Mit „Nächste Karte“ bist du bereit für einen neuen Prompt.</li>
+        </ul>
+        <p>Wir möchten dir so einen einfachen und praktischen Einstieg in das Thema „Prompten für Anfänger“ ermöglichen. Viel Spaß beim Ausprobieren und Experimentieren!</p>
+    </div>
+
+    <div class="flip-card" id="flip-card" onclick="flipCard()">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <span>Zum Umdrehen klicken</span>
+            </div>
+            <div class="flip-card-back">
+                <div class="prompt-text" id="prompt-anzeige"></div>
+                <div class="button-container">
+                    <button class="action-button button-copy" onclick="kopierePrompt(event)">Text kopieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="button-container">
+    <button class="action-button button-primary" onclick="zeigeNaechsteKarte()">Nächste Karte</button>
+</div>
+
+<script>
+    const prompts = [
+        "**Aufgabe:** AI-Tipp der Woche – Aufgabenübersicht\n\n*Plane deinen Tag mit FraportGPT\n\n„Ich benötige Hilfe dabei, meine Aufgaben für den Tag zu organisieren, um sicherzustellen, dass ich den Überblick behalte und effektiv priorisiere. Deine Aufgabe ist es, einen detaillierten Zeitplan zu erstellen, der jede Aufgabe, ihre Priorität, die geschätzte Dauer zur Erledigung und eventuelle Fristen oder zeitliche Einschränkungen beinhaltet. [Aufgaben einfügen]”*",
+        "**Aufgabe:** 60 Sekunden-Wissen\n\n*\"Gib mir einen kompakten Überblick zu [Thema] in maximal 60 Sekunden.\nStrukturiere in:\n1) wichtigste Aussage,\n2) warum das Thema für Unternehmen relevant ist,\n3) eine aktuelle Herausforderung oder Kontroverse,\n4) eine kluge Frage, die man im Gespräch stellen kann\"*",
+        "**Aufgabe:** Vorbereitung auf ein Feedbackgespräch\n\n*„Hilf mir, ein ehrliches, konstruktives Feedback-Gespräch mit [Kolleg:in / Mitarbeiter:in / Chef:in / Praktikant:in] vorzubereiten. Die Person macht ihren Job grundsätzlich gut, aber es gibt auch Verbesserungspotenzial im Bereich […]. Das Gespräch soll respektvoll, klar und lösungsorientiert sein. Bitte formuliere konkrete Sätze, die ich sagen könnte, und gib mir Tipps für einen guten Einstieg und Abschluss.“*",
+        "**Aufgabe:** LinkedIn-Überschrift einfach erstellt\n\n*\"Du bist ein LinkedIn-Experte für Personal Branding mit jahrelanger Erfahrung. Hilf mir, eine Überschrift für mein LinkedIn-Profil zu erstellen, die effektiv meine Erfahrung, Qualifikationen und meinen USP kommuniziert. Erwäge dabei, relevante Schlüsselwörter aus meinem unten stehenden Lebenslauf zu integrieren und meine Leidenschaft oder Mission hervorzuheben. Die Überschrift sollte einen ersten Eindruck vermitteln, der Aufmerksamkeit erregt und Besucher dazu ermutigt, mein Profil weiter zu erkunden. Gib mir bitte 10 verschiedene Überschriften.\nMein Lebenslauf: [Füge deinen Lebenslauf ein]\"*",
+        "**Aufgabe:** FraportGPT für mehr Sport im Büroalltag\n\n*„Ich möchte Sport fest in meinen Arbeitsalltag integrieren. Mein Ziel ist es, trotz Bürojob aktiv zu bleiben, meine Gesundheit zu fördern und neue Routinen zu entwickeln. Wie kann ich Bewegung sinnvoll in meinen Tagesablauf einbauen, ohne dass sie mit meinen beruflichen Verpflichtungen kollidiert? Welche kleinen, aber effektiven sportlichen Einheiten eignen sich besonders gut für zwischendurch. Wie bleibe ich langfristig motiviert?“*",
+        "**Aufgabe:** Danksagungsmails verfassen mit FraportGPT\n\n*\"Schreibe eine Danksagung in Email-Format für die Unterstützer des AI Days. Bedanke dich bei allen, die zum Erfolg der Veranstaltung beigetragen haben, einschließlich der Organisatoren, Redner, Sponsoren und Teilnehmer. Hebe hervor, wie ihre Beiträge und Engagement den AI Day zu einer bereichernden und inspirierenden Erfahrung gemacht haben.“*",
+        "**Aufgabe:** Kreative Methoden für produktives Arbeiten\n\n*„Ich brauche Vorschläge für Techniken, die mir helfen können, meine Konzentration und Produktivität während der Arbeitszeit zu verbessern. Die Techniken sollten praktisch, leicht umzusetzen und effektiv darin sein, mir dabei zu helfen, fokussiert zu bleiben und Ablenkungen während der Arbeit zu vermeiden.\nDeine Aufgabe ist es, eine Liste bewährter Techniken bereitzustellen, die dabei unterstützen können.\nArbeitsumgebung: [Arbeitsumgebung]\nTypische Ablenkungen: [typische Ablenkungen]”*",
+        "**Aufgabe:** Entscheidungen einfacher treffen\n\n*„Bitte hilf mir, meine Entscheidungsfähigkeiten durch praktische Übungen und Modelle zu verbessern. Gib mir eine präzise Anleitung, damit ich wichtige Entscheidungen im Beruf und im Privatleben besser treffen kann. Verwende Modelle wie das First-Principles-Denken, den Entscheidungsbaum oder die Spieltheorie.“*",
+        "**Aufgabe:** Unterstützung bei der Einarbeitung in Themen\n\n*\"Ich brauche Hilfe, um mich in [Thema] einzuarbeiten. Bitte identifiziere die wichtigsten 20 % der Informationen, die mir helfen werden, 80 % des Themas zu begreifen. Verwende Analogien und Beispiele aus dem Alltag, um jedes Konzept verständlich und anschaulich zu erklären. Die Erklärung sollte das Thema klar und fesselnd darstellen und es mit alltäglichen Erfahrungen verbinden. Außerdem bitte ich um Tipps oder Fragen, mit denen ich mein Verständnis des Stoffes überprüfen kann.\"*",
+        "**Aufgabe:** Mit Copilot PowerPoint-Grafiken erstellen\n\n*\"Erstelle ein modernes, freundliches Präsentationsbild für PowerPoint: Verschiedene Menschen arbeiten gemeinsam an einem großen Tisch, Laptop und Notizblöcke liegen bereit, im Hintergrund sieht man ein helles Büro mit Pflanzen. Die Szene vermittelt Innovation, Teamgeist und Professionalität. Der Stil soll illustrativ und klar sein, mit warmen, einladenden Farben.\"*",
+        "**Aufgabe:** Interviewvorbereitung in FraportGPT\n\n*\"Simuliere ein Bewerbungsgespräch für die Position [Jobtitel] im Bereich [Bereich]. Stelle als Interviewer herausfordernde, aber realistische Fragen und gib mir nach jeder meiner Antworten ein professionelles Feedback mit Verbesserungsvorschlägen.\"*",
+        "**Aufgabe:** Der perfekte LinkedIn Prompt zum Kopieren\n\n*„Du bist Experte für gute LinkedIn-Posts. Schreibe einen Linkedin-Post für Fachleute im Bereich [z. B. Aviation], der Einblicke in [das aktuelle Thema] gibt. Der Post soll zeigen, wie du persönlich von diesem Thema profitiert hast, und gleichzeitig Mehrwert für die Leserinnen und Leser bieten.\nFrage mich zuerst nach dem Thema und ein paar Details. Wenn etwas offen ist, frage nach. Mache auch Vorschläge für inhaltliche Erweiterungen. Verwende einen lockeren, aber professionellen Ton. Füge am Ende eine Frage hinzu, um die Community zum Austausch zu animieren. Halte den Post unter 150 Wörtern.\"*",
+        "**Aufgabe:** Arbeitsabläufe clever gestalten: Prompt zur Prozessoptimierung\n\n*„Ich habe in meinem Arbeitsalltag einen wiederkehrenden Prozess, der viel Zeit oder Mühe kostet. Der Prozess besteht darin, [beschreibe den Ablauf möglichst genau, z. B. Genehmigungen einholen, indem ich verschiedene Abteilungen per E-Mail anfrage und auf Rückmeldungen warte, monatlich die Urlaubsplanung für das Team abstimmen, etc.]. Wie kann ich diesen Prozess strukturieren, vereinfachen oder effizienter gestalten? Welche Schritte oder Methoden zur Prozessoptimierung würdest du mir empfehlen, um den Ablauf übersichtlicher, schneller oder weniger fehleranfälliger zu machen?“*",
+        "**Aufgabe:** Besser einschlafen trotz Jobstress\n\n*„Ich habe oft abends Probleme beim Einschlafen, weil ich gedanklich noch bei der Arbeit bin. Nenne mir bitte 5 alltagstaugliche Tricks oder Gewohnheiten, mit denen ich abends besser zur Ruhe komme – ganz ohne Hilfsmittel wie Medikamente, Apps oder Supplements. Die Tipps sollten einfach umsetzbar sein und helfen, den Kopf nach einem stressigen Arbeitstag freizubekommen.“*",
+        "**Aufgabe:** Mit FraportGPT einen LinkedIn-Post erstellen\n\n*„Schreibe einen LinkedIn-Post, in dem ich meine wichtigsten Learnings aus ___ (z. B. einem Projekt, Praktikum, Kurs, Buch) teile. Gib dem Post eine klare Struktur mit einem einleitenden Satz, 3-5 Stichpunkten und einem abschließenden Gedanken.“*",
+        "**Aufgabe:** Die perfekte Getränkemenge für Sommerabende mit Freunden\n\n*„Ich plane einen Sommerabend mit Freunden. Wir sind [X] Personen. Davon trinken [Y] Alkohol und [Z] alkoholfrei. Der Abend geht ca. 5 Stunden. Bitte sag mir, wie viele Getränke ich ungefähr kaufen sollte – aufgeteilt in: Bier, Wein, Longdrinks (z. B. Gin Tonic), Softdrinks, Wasser, Säfte.“*", 
+        "**Aufgabe:** Packliste mit AI\n\n*„Erstelle eine detaillierte Packliste für einen X-tägigen Trip nach [Reiseziel]. Es handelt sich bei der Reise um [Art der Reise]. Berücksichtige die erwarteten Temperaturen von X bis X Grad. Die Liste sollte in verschiedene Kategorien unterteilt sein.“*",
+        "**Aufgabe:** AI hilft bei Sommerhitze\n\n*„Es ist Sommer und es sind draußen über 30°C. Ich arbeite (im Büro/ Homeoffice/ im Freien). Welche alltagstauglichen Strategien, Routinen oder Hacks helfen mir dabei, auch bei drückender Sommerhitze fokussiert, leistungsfähig und produktiv zu bleiben?“*",
+        "**Aufgabe:** Ideen für ein After-Work-Event\n\n*„Ich plane ein After-Work-Event für [X] Leute. Das Wetter ist noch unklar, also wäre es gut, sowohl drinnen als auch draußen Optionen zu haben. Die Veranstaltung ist für [Uhrzeit/Jahreszeit] geplant und soll ca. [Stunden] dauern. Gebe mir kreative Ideen für Aktivitäten oder Orte, die sich gut für ein solches Event eignen.“*",
+        "**Aufgabe:** Mit AI zum individuellen Kochrezept\n\n*„Erstelle mir ein schnelles Kochrezept mit nur wenigen Zutaten. Die gesamte Kochzeit soll maximal […] Minuten betragen. Das Rezept soll Rindfleisch und Reis enthalten und maximal [...] Kalorien haben.\"*",
+        "**Aufgabe:** Präsentationsskills verbessern\n\n*\"Ich möchte meine Präsentationsfähigkeiten verbessern. Gib mir Tipps, wie ich überzeugender und sicherer vortragen kann – zum Beispiel in Bezug auf Körpersprache, Stimme, Struktur und Umgang mit Nervosität. Welche Methoden und Techniken eignen sich besonders, um mein Publikum aktiv einzubinden und die Aufmerksamkeit über den gesamten Vortrag hinweg aufrechtzuerhalten?\"*",
+        "**Aufgabe:** FraportGPT für deinen Office-Look\n\n*„Außerhalb der Arbeit bevorzuge ich einen lässigen Stil, doch im Büro muss ich mich im typischen Business-Casual-Look präsentieren. Leider fühle ich mich in dieser formelleren Kleidung oft unwohl und finde sie etwas zu steif. Wie kann ich am besten meinen lockeren, persönlichen Stil mit einem professionellem Office-Look kombinieren, ohne mich „spießig“ zu fühlen?“*",
+        "**Aufgabe:** AI für die Urlaubsplanung\n\n*„Ich plane einen Sommerurlaub und brauche Hilfe bei der Planung. Wir sind [X] Erwachsene und [X] Kinder im Alter von [..]. Kannst du mir Vorschläge für familienfreundliche Aktivitäten und Ausflüge geben, die ich in und um [Urlaubsziel] machen kann?“*",
+        "**Aufgabe:** Gedicht über HRP – People & Culture\n\n*„Du bist ein talentierter Dichter. Schreibe ein inspirierendes Gedicht (4 Strophen à 4 Zeilen) über HRP – People & Culture. Es soll Menschlichkeit, Wandel und Wachstum ausdrücken und die Mission „Menschen fördern, Kultur gestalten, Zukunft schaffen“ einfangen – in positiver, motivierender Sprache.“*",
+        "**Aufgabe:** Team-Song von HRP – People & Culture\n\n*„Stell dir vor, du bist Songwriter und schreibst den Team-Song von HRP – People & Culture.\nJede Strophe spiegelt einen unserer Bereiche wider:\n- Culture & Transformation\n- Diversity\n- People Development & Experience\n- HR Strategy & Top Executive Management\n- Global Mobility.\nLass Rhythmus, Gefühl und Teamgeist erklingen – zeig, wie all das zusammen unsere Kultur und unseren Wandel trägt. Gib eine Überschrift und ein passendes Musikgenre an.“*"
+    ];
+
+    // Globaler Array zur Speicherung der gemischten Reihenfolge
+    let shuffledPrompts = [];
+    let currentPromptIndex = 0;
+
+    // Funktion zum Mischen des Arrays (Fisher-Yates Algorithmus)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function ladeNeuenPrompt() {
+        // 1. Prüfen, ob die gemischte Liste leer ist (Start oder Ende eines Durchlaufs)
+        if (shuffledPrompts.length === 0 || currentPromptIndex >= shuffledPrompts.length) {
+            // Alle Prompts wurden angezeigt: Neu mischen und von vorne beginnen
+            shuffledPrompts = shuffleArray([...prompts]); // Kopie des Original-Arrays mischen
+            currentPromptIndex = 0; // Index zurücksetzen
+            console.log("Die Prompt-Liste wurde neu gemischt.");
+        }
+        
+        // 2. Nächsten Prompt aus der gemischten Liste holen
+        const fullPromptText = shuffledPrompts[currentPromptIndex];
+        currentPromptIndex++; // Index für den nächsten Klick erhöhen
+
+        // 3. Anzeige des Prompts (wie bisher)
+        const [title, ...contentParts] = fullPromptText.split('\n');
+        const contentText = contentParts.join('\n');
+
+        const promptAnzeige = document.getElementById("prompt-anzeige");
+        promptAnzeige.innerHTML = '';
+
+        const titleSpan = document.createElement('span');
+        titleSpan.classList.add('prompt-title');
+        titleSpan.innerText = title.replace(/\*\*/g, '');
+        promptAnzeige.appendChild(titleSpan);
+
+        const contentSpan = document.createElement('span');
+        contentSpan.classList.add('prompt-content');
+        contentSpan.innerText = contentText.replace(/\*/g, '');
+        promptAnzeige.appendChild(contentSpan);
+    }
+
+    function flipCard() {
+        const card = document.getElementById("flip-card");
+        card.classList.toggle('flipped');
+    }
+
+    function zeigeNaechsteKarte() {
+        const card = document.getElementById("flip-card");
+        
+        // Drehe die Karte zurück, bevor der neue Prompt geladen wird
+        card.classList.remove('flipped');
+        
+        // Kurze Verzögerung, damit die Flip-Animation sichtbar ist
+        setTimeout(ladeNeuenPrompt, 400); 
+    }
+    
+    function kopierePrompt(event) {
+        event.stopPropagation();
+        const promptText = document.getElementById("prompt-anzeige").innerText;
+        
+        const cleanedText = promptText.split('\n').map((line, index) => {
+            if (index === 0) {
+                return line.replace('Aufgabe: ', '');
+            }
+            return line;
+        }).join('\n');
+        
+        navigator.clipboard.writeText(cleanedText).then(() => {
+            alert("Prompt wurde in die Zwischenablage kopiert!");
+        }).catch(err => {
+            console.error('Kopieren fehlgeschlagen: ', err);
+        });
+    }
+
+    // Beim Laden der Seite den ersten Satz Prompts mischen und den ersten anzeigen
+    window.onload = () => {
+        shuffledPrompts = shuffleArray([...prompts]);
+        ladeNeuenPrompt();
+    };
+</script>
+
+</body>
+</html>
