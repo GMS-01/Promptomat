@@ -59,9 +59,16 @@
 
         .info-card ul {
             padding-left: 20px;
+            list-style-type: none; /* Entfernt die Standard-Listenpunkte für ein saubereres Layout */
+            padding-left: 0;
         }
 
         .info-card ul li {
+            margin-bottom: 15px;
+        }
+
+        .info-card ul li strong {
+            display: block;
             margin-bottom: 5px;
         }
         
@@ -121,7 +128,7 @@
             overflow-y: auto;
             word-wrap: break-word;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            display: block; /* Use block to enable more flexible text formatting */
+            display: block;
         }
         
         .prompt-text {
@@ -130,7 +137,6 @@
             margin-bottom: 20px;
         }
 
-        /* New CSS for the right card's text */
         .prompt-title {
             font-weight: bold;
             display: block;
@@ -162,7 +168,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        /* Updated button colors */
         .button-primary,
         .button-copy {
             background-color: rgb(111, 22, 111);
@@ -170,7 +175,7 @@
         
         .button-primary:hover,
         .button-copy:hover {
-            background-color: rgb(88, 17, 88); /* Eine etwas dunklere Version für den Hover-Effekt */
+            background-color: rgb(88, 17, 88);
             box-shadow: 0 6px 20px rgba(111, 22, 111, 0.4);
         }
     </style>
@@ -182,18 +187,23 @@
 <div class="cards-container">
 
     <div class="info-card">
-        <h2>Willkommen auf dem HRP-Marktplatz!</h2>
-        <p>Zum Einstieg möchten wir dich dazu einladen, das „Prompten“ spielerisch selbst auszuprobieren. Dafür haben wir diese Prompt-Maschine entwickelt, die dir mit jedem Klick einen neuen, inspirierenden KI-Prompt präsentiert.</p>
-        <p>Jeder Prompt wurde speziell für den beruflichen Kontext erstellt und soll als kreative Starthilfe dienen. Probiere ihn mit FraportGPT oder einem anderen KI-Tool deiner Wahl aus.</p>
-        <p><b>So funktioniert’s:</b></p>
+        <h2>Willkommen bei der Prompt-Maschine</h2>
+        <p>Dein Werkzeug, um das **Prompten spielerisch zu lernen** und zu perfektionieren. Hier erhältst du **kreative Starthilfen**, um die Möglichkeiten der KI (z.B. **FraportGPT** oder **Copilot**) in verschiedenen Lebensbereichen optimal auszunutzen.</p>
+        
+        <h3>So nutzt du die Karten:</h3>
         <ul>
-            <li>Klicke auf die Karte, um einen zufälligen Prompt zu erhalten.</li>
-            <li>Kopiere den Prompt: Mit dem Button „Text kopieren“ kannst du den Prompt direkt in deine Zwischenablage übernehmen.</li>
-            <li>Passe den Prompt an: Beachte, dass die Prompts oft noch mit den richtigen Informationen von dir personalisiert werden müssen.</li>
-            <li>Starte die nächste Runde: Mit „Nächste Karte“ bist du bereit für einen neuen Prompt.</li>
+            <li>
+                <strong>Zufälligen Prompt erhalten:</strong> Klicke einfach auf die **Karte**, um den ersten Prompt zu sehen, oder auf den Button **„Nächste Karte“**, um eine neue Karte zu erhalten.
+            </li>
+            <li>
+                <strong>Prompt kopieren:</strong> Nutze **„Text kopieren“**, um den Text in deine Zwischenablage zu übernehmen.
+            </li>
+            <li>
+                <strong>Anpassen und Starten:</strong> Füge den Prompt in dein KI-Tool ein. Ersetze die **Platzhalter** (z.B. <code>[Thema]</code>, <code>[X]</code>, <code>[...]</code>) durch deine **konkreten Informationen** und schaue, was die KI dir vorschlägt.
+            </li>
         </ul>
-        <p>Wir möchten dir so einen einfachen und praktischen Einstieg in das Thema „Prompten für Anfänger“ ermöglichen. Viel Spaß beim Ausprobieren und Experimentieren!</p>
-    </div>
+        <p>Viel Spaß beim Lernen und Experimentieren!</p>
+        </div>
 
     <div class="flip-card" id="flip-card" onclick="flipCard()">
         <div class="flip-card-inner">
@@ -229,10 +239,10 @@
         "**Aufgabe:** Mit Copilot PowerPoint-Grafiken erstellen\n\n*\"Erstelle ein modernes, freundliches Präsentationsbild für PowerPoint: Verschiedene Menschen arbeiten gemeinsam an einem großen Tisch, Laptop und Notizblöcke liegen bereit, im Hintergrund sieht man ein helles Büro mit Pflanzen. Die Szene vermittelt Innovation, Teamgeist und Professionalität. Der Stil soll illustrativ und klar sein, mit warmen, einladenden Farben.\"*",
         "**Aufgabe:** Interviewvorbereitung in FraportGPT\n\n*\"Simuliere ein Bewerbungsgespräch für die Position [Jobtitel] im Bereich [Bereich]. Stelle als Interviewer herausfordernde, aber realistische Fragen und gib mir nach jeder meiner Antworten ein professionelles Feedback mit Verbesserungsvorschlägen.\"*",
         "**Aufgabe:** Der perfekte LinkedIn Prompt zum Kopieren\n\n*„Du bist Experte für gute LinkedIn-Posts. Schreibe einen Linkedin-Post für Fachleute im Bereich [z. B. Aviation], der Einblicke in [das aktuelle Thema] gibt. Der Post soll zeigen, wie du persönlich von diesem Thema profitiert hast, und gleichzeitig Mehrwert für die Leserinnen und Leser bieten.\nFrage mich zuerst nach dem Thema und ein paar Details. Wenn etwas offen ist, frage nach. Mache auch Vorschläge für inhaltliche Erweiterungen. Verwende einen lockeren, aber professionellen Ton. Füge am Ende eine Frage hinzu, um die Community zum Austausch zu animieren. Halte den Post unter 150 Wörtern.\"*",
-        "**Aufgabe:** Arbeitsabläufe clever gestalten: Prompt zur Prozessoptimierung\n\n*„Ich habe in meinem Arbeitsalltag einen wiederkehrenden Prozess, der viel Zeit oder Mühe kostet. Der Prozess besteht darin, [beschreibe den Ablauf möglichst genau, z. B. Genehmigungen einholen, indem ich verschiedene Abteilungen per E-Mail anfrage und auf Rückmeldungen warte, monatlich die Urlaubsplanung für das Team abstimmen, etc.]. Wie kann ich diesen Prozess strukturieren, vereinfachen oder effizienter gestalten? Welche Schritte oder Methoden zur Prozessoptimierung würdest du mir empfehlen, um den Ablauf übersichtlicher, schneller oder weniger fehleranfälliger zu machen?“*",
+        "**Aufgabe:** Arbeitsabläufe clever gestalten: Prompt zur Prozessoptimierung\n\n*„Ich habe in meinem Arbeitsalltag einen wiederkehrenden Prozess, der viel Zeit oder Mühe kostet. Der Prozess besteht darin, [beschreibe den Ablauf möglichst genau, z.B. Genehmigungen einholen, indem ich verschiedene Abteilungen per E-Mail anfrage und auf Rückmeldungen warte, monatlich die Urlaubsplanung für das Team abstimmen, etc.]. Wie kann ich diesen Prozess strukturieren, vereinfachen oder effizienter gestalten? Welche Schritte oder Methoden zur Prozessoptimierung würdest du mir empfehlen, um den Ablauf übersichtlicher, schneller oder weniger fehleranfälliger zu machen?“*",
         "**Aufgabe:** Besser einschlafen trotz Jobstress\n\n*„Ich habe oft abends Probleme beim Einschlafen, weil ich gedanklich noch bei der Arbeit bin. Nenne mir bitte 5 alltagstaugliche Tricks oder Gewohnheiten, mit denen ich abends besser zur Ruhe komme – ganz ohne Hilfsmittel wie Medikamente, Apps oder Supplements. Die Tipps sollten einfach umsetzbar sein und helfen, den Kopf nach einem stressigen Arbeitstag freizubekommen.“*",
-        "**Aufgabe:** Mit FraportGPT einen LinkedIn-Post erstellen\n\n*„Schreibe einen LinkedIn-Post, in dem ich meine wichtigsten Learnings aus ___ (z. B. einem Projekt, Praktikum, Kurs, Buch) teile. Gib dem Post eine klare Struktur mit einem einleitenden Satz, 3-5 Stichpunkten und einem abschließenden Gedanken.“*",
-        "**Aufgabe:** Die perfekte Getränkemenge für Sommerabende mit Freunden\n\n*„Ich plane einen Sommerabend mit Freunden. Wir sind [X] Personen. Davon trinken [Y] Alkohol und [Z] alkoholfrei. Der Abend geht ca. 5 Stunden. Bitte sag mir, wie viele Getränke ich ungefähr kaufen sollte – aufgeteilt in: Bier, Wein, Longdrinks (z. B. Gin Tonic), Softdrinks, Wasser, Säfte.“*", 
+        "**Aufgabe:** Mit FraportGPT einen LinkedIn-Post erstellen\n\n*„Schreibe einen LinkedIn-Post, in dem ich meine wichtigsten Learnings aus ___ (z.B. einem Projekt, Praktikum, Kurs, Buch) teile. Gib dem Post eine klare Struktur mit einem einleitenden Satz, 3-5 Stichpunkten und einem abschließenden Gedanken.“*",
+        "**Aufgabe:** Die perfekte Getränkemenge für Sommerabende mit Freunden\n\n*„Ich plane einen Sommerabend mit Freunden. Wir sind [X] Personen. Davon trinken [Y] Alkohol und [Z] alkoholfrei. Der Abend geht ca. 5 Stunden. Bitte sag mir, wie viele Getränke ich ungefähr kaufen sollte – aufgeteilt in: Bier, Wein, Longdrinks (z.B. Gin Tonic), Softdrinks, Wasser, Säfte.“*",
         "**Aufgabe:** Packliste mit AI\n\n*„Erstelle eine detaillierte Packliste für einen X-tägigen Trip nach [Reiseziel]. Es handelt sich bei der Reise um [Art der Reise]. Berücksichtige die erwarteten Temperaturen von X bis X Grad. Die Liste sollte in verschiedene Kategorien unterteilt sein.“*",
         "**Aufgabe:** AI hilft bei Sommerhitze\n\n*„Es ist Sommer und es sind draußen über 30°C. Ich arbeite (im Büro/ Homeoffice/ im Freien). Welche alltagstauglichen Strategien, Routinen oder Hacks helfen mir dabei, auch bei drückender Sommerhitze fokussiert, leistungsfähig und produktiv zu bleiben?“*",
         "**Aufgabe:** Ideen für ein After-Work-Event\n\n*„Ich plane ein After-Work-Event für [X] Leute. Das Wetter ist noch unklar, also wäre es gut, sowohl drinnen als auch draußen Optionen zu haben. Die Veranstaltung ist für [Uhrzeit/Jahreszeit] geplant und soll ca. [Stunden] dauern. Gebe mir kreative Ideen für Aktivitäten oder Orte, die sich gut für ein solches Event eignen.“*",
